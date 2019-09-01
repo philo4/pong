@@ -2,6 +2,7 @@
 var canvas = document.getElementById('pong-canvas');
 var context = canvas.getContext('2d');
 context.fillStyle = 'white';
+context.globalAlpha = 0.9;
 
 var map = {};
 var width = canvas.width;
@@ -9,6 +10,7 @@ var height = canvas.height;
 var paddleWidth = 10;
 var paddleHeight = 100;
 var paddleSpeed = 10;
+var time = 0;
 
 var player1 = {
     score: 0,
@@ -93,20 +95,15 @@ function updateScores() {
     document.getElementById('player-2-score').innerText = player2.score;
 }
 
-function draw() {
-    context.clearRect(0, 0, width, height);    
-    
-    drawPaddle(player1);
-    drawPaddle(player2);
-    drawBall(ball);
-    ball.speed = Math.min(ball.speed * 1.001, 10);
-    paddleSpeed = Math.min(paddleSpeed * 1.001, 100);
-    requestAnimationFrame(draw, 60);
+function getColor() {
+    var r = Math.floor(Math.random() * 256);
+    var g = Math.floor(Math.random() * 256);
+    var b = Math.floor(Math.random() * 256);
+    return `rgb(${r}, ${g}, ${b})`;
 }
 
-document.onkeydown = document.onkeyup = function(e) {
-    map[e.key] = e.type == 'keydown';    
 
+function movePaddles() {
     if (map['w']) {
         player1.yPosition -= paddleSpeed;
     }
@@ -122,6 +119,26 @@ document.onkeydown = document.onkeyup = function(e) {
     if (map['k']) {
         player2.yPosition += paddleSpeed;
     }
+}
+
+function draw() {
+    time++;
+    context.clearRect(0, 0, width, height);    
+    
+    context.fillStyle = getColor();
+    
+    movePaddles();
+    drawPaddle(player1);
+    drawPaddle(player2);
+    drawBall(ball);
+    ball.speed = Math.min(ball.speed * 1.001, 100);
+    paddleSpeed = Math.min(paddleSpeed * 1.001, 100);
+    requestAnimationFrame(draw, 60);
+}
+
+document.onkeydown = document.onkeyup = function(e) {
+    map[e.key] = e.type == 'keydown';    
+    console.log(map);
 }
 
 draw();
