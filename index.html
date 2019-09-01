@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pong</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+        }
+        .header {
+            font-family: 'Segoe UI'; 
+            font-weight: 200;
+        }
+        .center {
+            text-align: center;
+        }
+    </style>
+
+</head>
+<body class="center">
+    <h1 class="header">Pong</h1>
+    <h2 class="header">Player 1: <span id="player-1-score">0</span></h2>
+    <h2 class="header">Player 2: <span id="player-2-score">0</span></h2>
+    <canvas id="pong-canvas" width="800" height="600" style="border: 1px solid white"></canvas>
+    <script src="pong.js"></script>    
+</body>
+</html>
